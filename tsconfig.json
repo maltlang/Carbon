@@ -1,8 +1,10 @@
 {
     "compilerOptions": {
+        "target": "es2015",
         "outDir": "./target",
+        "module": "commonjs",
         "allowJs": true,
-        "target": "es2015"
+        "sourceMap": true,
     },
     "include": [
         "./src/**/*"
