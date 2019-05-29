@@ -1,15 +1,15 @@
 // opcodes.rawMir
-    export const load_const          = 0
-    export const load_lambda         = 1
-    export const load_symbol         = 2
-    export const write_local_symbol  = 3
-    export const write_object_symbol = 4
-    export const get_method          = 5
-    export const copy_to_shared_area = 6
-    export const _delete             = 7
-    export const gc_new              = 8
-    export const call                = 9
-    export const _return             = 10
+export const load_const          = 0
+export const load_lambda         = 1
+export const load_symbol         = 2
+export const write_local_symbol  = 3
+export const write_object_symbol = 4
+export const get_method          = 5
+export const copy_to_shared_area = 6
+export const _delete             = 7
+export const gc_new              = 8
+export const call                = 9
+export const _return             = 10
 
 // opcodes.optimizMir
 export const load_local_of_offset    = 11
