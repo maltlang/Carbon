@@ -18,7 +18,7 @@ export const write_local_of_offset   = 13
 export const write_object_of_offset  = 14
 export const get_method_of_offset    = 15
 
-//opcodes.optimizL2Mir
+// opcodes.optimizL2Mir
 export const _throw  = 16
 export const add     = 17
 export const sub     = 18

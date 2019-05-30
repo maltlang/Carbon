@@ -1,0 +1,15 @@
+{
+  "name": "carbon",
+  "private": true,
+  "scripts": {
+    "lint": "tslint --project . ./src/**/*.ts"
+  },
+  "devDependencies": {
+    "tslint": "^5.16.0",
+    "tslint-config-alloy": "^0.2.1",
+    "tslint-config-prettier": "^1.18.0"
+  },
+  "dependencies": {
+    "typescript": "^3.5.1"
+  }
+}

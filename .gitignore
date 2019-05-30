@@ -1,1 +1,8 @@
-/target/
+# Folders
+target/
+dist/
+node_modules/
+
+# IDE Files
+.vs
+.idea
