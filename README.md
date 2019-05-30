@@ -1,4 +1,4 @@
-# Carbon ![Travis CI](https://travis-ci.com/maltlang/Carbon.svg?branch=master)
+# Carbon [![Build Status](https://travis-ci.com/maltlang/Carbon.svg?branch=master)](https://travis-ci.com/maltlang/Carbon)
 
 The Carbon MteRT-any-ts
 
