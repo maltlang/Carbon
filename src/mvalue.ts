@@ -1,65 +1,67 @@
 import { LambdaStruct, VirtualMachineContext } from "./context"
 
-export type MType = {
-    name: string
-    method_map: Map<string, LambdaStruct>
-    method_list: LambdaStruct[]
+export interface MType {
+  name: string
+  method_map: { [key: string]: LambdaStruct }
+  method_list: LambdaStruct[]
+
+  [key: string]: any
 }
 
-export const MNumberType = {
-    name: "number",
-    method_map: {},
-    method_list: []
+export const MNumberType: MType = {
+  name: "number",
+  method_map: {},
+  method_list: []
 }
 
-export const MStringType = {
-    name: "string",
-    method_map: {},
-    method_list: []
+export const MStringType: MType = {
+  name: "string",
+  method_map: {},
+  method_list: []
 }
 
-export const MArrayType = {
-    name: "array",
-    method_map: {},
-    method_list: []
+export const MArrayType: MType = {
+  name: "array",
+  method_map: {},
+  method_list: []
 }
 
-export const MMapType = {
-    name: "map",
-    method_map: {},
-    method_list: []
+export const MMapType: MType = {
+  name: "map",
+  method_map: {},
+  method_list: []
 }
 
-export type MObject = {
-    map_table: Map<string, number>
-    var_table: MValue[]
+export interface MObject {
+  map_table: { [key: string]: number }
+  var_table: MValue[]
 }
 
-export const MLambdaType = {
-    name: "lambda",
-    method_map: {},
-    method_list: []
+export const MLambdaType: MType = {
+  name: "lambda",
+  method_map: {},
+  method_list: []
 }
 
 export type JSFunction =
-    (vmContext: VirtualMachineContext, self: MValue, args: MValue[]) => MValue
+  (vmContext: VirtualMachineContext, self: MValue, args: MValue[]) => MValue;
 
-export const MTypeType = {
-    name: "type",
-    method_map: {},
-    method_list: []
+export const MTypeType: MType = {
+  name: "type",
+  method_map: {},
+  method_list: []
 }
 
 export type Value
-    = number
-    | string
-    | Array<any>
-    | Map<string, any>
-    | LambdaStruct | JSFunction
-    | MType
-    | MObject
+  = number
+  | string
+  | Array<any>
+  | Map<string, any>
+  | LambdaStruct | JSFunction
+  | MType
+  | MObject
 
-export type MValue = {
-    type: MType
-    value?: Value
+export interface MValue {
+  type: MType
+  value?: Value
 }
