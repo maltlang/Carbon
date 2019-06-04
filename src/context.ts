@@ -12,7 +12,7 @@ interface OpValue2 {
 export interface OpCode {
   line: number
   code: number
-  valu: OpValue1 | OpValue2
+  valu?: OpValue1 | OpValue2
 }
 
 export interface ModuleContext {
@@ -25,9 +25,8 @@ export interface ModuleContext {
 
 export interface LambdaStruct {
   module_pointer: ModuleContext
-  self_pointer: MValue
   env?: StackFrame
-  local_name_table: Array<string>
+  local_name_table: string[]
   bytecodes: OpCode[]
 }
 
@@ -39,6 +38,7 @@ export interface OpStack {
 export interface StackFrame {
   method_pointer: LambdaStruct
   var_table: { [key: string]: MValue }
+  //self_pointer: MValue
   opStack?: OpStack
   bytecode_pointer: number
   next?: StackFrame
@@ -46,7 +46,7 @@ export interface StackFrame {
 
 export interface VirtualMachineContext {
   top_level_module_context: ModuleContext
-  module_table: Array<ModuleContext>
+  module_table: ModuleContext[]
   stack_frame?: StackFrame
 }
 
