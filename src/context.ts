@@ -38,7 +38,6 @@ export interface OpStack {
 export interface StackFrame {
   method_pointer: LambdaStruct
   var_table: { [key: string]: MValue }
-  //self_pointer: MValue
   opStack?: OpStack
   bytecode_pointer: number
   next?: StackFrame

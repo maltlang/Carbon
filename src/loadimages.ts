@@ -1,8 +1,8 @@
 import {
-  VirtualMachineContext,
-  OpCode,
   LambdaStruct,
-  ModuleContext } from "./context"
+  ModuleContext,
+  OpCode,
+  VirtualMachineContext  } from "./context"
 
 
 export function
@@ -12,19 +12,19 @@ loadImages (vmContext: VirtualMachineContext, path: string) {
 
 export function
 loadLambdas(input: string, modu: ModuleContext): LambdaStruct[] | void {
-  
+
 }
 
 export function wcToOpCode(input: string): OpCode {
   const item = input.split(' ')
   let result: OpCode
-  if (item.length = 2) {
+  if (item.length === 2) {
     result = {
       line: Number(item[0]),
       code: Number(item[1]),
       valu: null,
     }
-  } else if (item.length = 3) {
+  } else if (item.length === 3) {
     result = {
       line: Number(item[0]),
       code: Number(item[1]),
@@ -32,7 +32,7 @@ export function wcToOpCode(input: string): OpCode {
         Value: Number(item[3]),
       },
     }
-  } else if (item.length = 4) {
+  } else if (item.length === 4) {
     result = {
       line: Number(item[0]),
       code: Number(item[1]),
