@@ -2,80 +2,34 @@ import * as bcodes from "./bytecodes"
 import { OpCode, StackFrame, VirtualMachineContext } from "./context"
 import { MValue } from "./mvalue"
 
-export function loadGlobalSymbol (vmContext: VirtualMachineContext, sym: string): MValue | null {
-  const r = vmContext
-    .top_level_module_context
-    .var_table[name]
-  if (r === undefined) {
-    return null
-  } else {
-    return r
-  }
-}
-
-export function loadLocalSymbol
+export function loadSymbol
 (stackFrame: StackFrame, sym: string): MValue | null {
   const r = stackFrame.var_table[sym]
   if (r === undefined) {
     if (stackFrame.method_pointer.env === null) {
       return null
     } else {
-      return loadLocalSymbol(stackFrame.method_pointer.env, sym)
+      return loadSymbol(stackFrame.method_pointer.env, sym)
     }
   } else {
     return r
-  }
-}
-
-export function loadSymbol
-(vmContext: VirtualMachineContext, sym: string): MValue | null {
-  if (vmContext.stack_frame === null) {
-    return loadGlobalSymbol(vmContext, sym)
-  } else {
-    const r = loadLocalSymbol(vmContext.stack_frame, sym)
-    if (r !== null) {
-      return r
-    } else {
-      return loadGlobalSymbol(vmContext, sym)
-    }
   }
 }
 
 export function pop
 (vmContext: VirtualMachineContext): MValue {
-  if (vmContext.stack_frame === null) {
-    const r = vmContext
-      .top_level_module_context
-      .top_stack
-      .value
-
-    vmContext.top_level_module_context.top_stack =
-      vmContext.top_level_module_context.top_stack.next
-    return r
-  } else {
-    const r = vmContext
+  const r = vmContext
       .stack_frame
       .opStack.value
 
     vmContext.stack_frame.opStack =
       vmContext.stack_frame.opStack.next
     return r
-  }
 }
 
 export function push
 (vmContext: VirtualMachineContext, value: MValue) {
-  if (vmContext.stack_frame === null) {
-    vmContext
-      .top_level_module_context
-      .top_stack = {
-      value,
-      next: vmContext
-        .top_level_module_context
-        .top_stack
-    }
-  } else {
-    vmContext
+  vmContext
       .stack_frame
       .opStack = {
       value,
@@ -83,16 +37,11 @@ export function push
         .stack_frame
         .opStack
     }
-  }
 }
 
 export function write_local
 (vmContext: VirtualMachineContext, sym: string, val: MValue) {
-  if (vmContext.stack_frame === null) {
-    vmContext.top_level_module_context.var_table.set(sym, val)
-  } else {
-    vmContext.stack_frame.var_table[sym] = val
-  }
+  vmContext.stack_frame.var_table[sym] = val
 }
 
 export function run (vmContext: VirtualMachineContext, opcode: OpCode): MValue {
@@ -110,10 +59,10 @@ export function run (vmContext: VirtualMachineContext, opcode: OpCode): MValue {
   } else if (opcode.code === bcodes.load_symbol) {
     // @ts-ignore
     const name = vmContext.top_level_module_context.symbol_table[opcode.valu.Value] // fixme : multi-type
-    const r = loadSymbol(vmContext, name)
+    const r = loadSymbol(vmContext.stack_frame, name)
     if (r === null) {
       throw new Error(`[MteRT]: Symbol '${name}' not found in:'\
-                ${vmContext.top_level_module_context.module_filename}:\
+                ${vmContext.top_level_module_context.module_path}:\
                 ${opcode.line}`)
     } else {
       return r
@@ -131,7 +80,7 @@ export function run (vmContext: VirtualMachineContext, opcode: OpCode): MValue {
   } else {
     throw new Error(`[MteRT]: Invalid bytecode '\
         ${opcode.code}' in:\
-        ${vmContext.top_level_module_context.module_filename}:\
+        ${vmContext.top_level_module_context.module_path}:\
         ${opcode.line}`)
   }
 }

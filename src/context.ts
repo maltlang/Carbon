@@ -16,13 +16,11 @@ export interface OpCode {
 }
 
 export interface ModuleContext {
-  module_filename: string
+  module_path: string
   symbol_table: string[]
   const_area: MValue[]
   method_area: LambdaStruct[]
-  var_table: Map<string, MValue>
   global_method: LambdaStruct[]
-  top_stack: OpStack
 }
 
 export interface LambdaStruct {
